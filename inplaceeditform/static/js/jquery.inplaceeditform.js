@@ -152,7 +152,7 @@
                 return false;
             }
             if (!self.enabled || !$(this).hasClass(self.opts.enableClass)) {
-                return false;
+                return;
             }
             var configTag = $(this).find(self.configSelector);
             var config = configTag.attr();
