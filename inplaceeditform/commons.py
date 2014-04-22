@@ -22,6 +22,8 @@ from django.conf import settings
 from inplaceeditform import settings as inplace_settings
 from inplaceeditform.adaptors import ADAPTOR_INPLACEEDIT as DEFAULT_ADAPTOR_INPLACEEDIT
 
+from ckeditor.fields import HTMLField
+
 has_transmeta = False
 DEFAULT_VALUE = ''
 try:
@@ -90,6 +92,8 @@ def get_adaptor_class(adaptor=None, obj=None, field_name=None):
             adaptor = 'email'
         elif isinstance(field, models.CharField):
             adaptor = 'text'
+        elif isinstance(field, HTMLField):
+            adaptor = 'html'
         elif isinstance(field, models.TextField):
             adaptor = 'textarea'
         elif isinstance(field, models.NullBooleanField):
