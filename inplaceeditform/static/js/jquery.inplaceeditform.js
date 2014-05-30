@@ -86,6 +86,8 @@
             }
             this.each(function () {
                 var configTag = $(this).find(self.configSelector);
+                if (!configTag.length)
+                    return
                 var config = configTag.attr();
                 if (self.methods.getOptBool(config, self.opts, "disableClick")) {
                     $(this).click(self.methods.disableClickCallBack);
@@ -131,6 +133,8 @@
             self.enabled = false;
             self.inplaceeditfields.each(function () {
                 var configTag = $(this).find(self.configSelector);
+                if (!configTag.length)
+                    return
                 var config = configTag.attr();
                 var enableClass = self.methods.getOpt(config, self.opts, "enableClass");
                 $(this).removeClass(enableClass);
@@ -141,6 +145,8 @@
             self.enabled = true;
             self.inplaceeditfields.each(function () {
                 var configTag = $(this).find(self.configSelector);
+                if (!configTag.length)
+                    return
                 var config = configTag.attr();
                 var enableClass = self.methods.getOpt(config, self.opts, "enableClass");
                 $(this).addClass(enableClass);
