@@ -38,18 +38,15 @@ def get_dict_from_obj(obj):
     Edit to get the dict even when the object is a GenericRelatedObjectManager.
     Added the try except.
     '''
-    obj_dict = obj.__dict__
-    obj_dict_result = obj_dict.copy()
-    for key, value in obj_dict.items():
-        if key.endswith('_id'):
-            key2 = key.replace('_id', '')
-            try:
-                field, model, direct, m2m = obj._meta.get_field_by_name(key2)
-                if isinstance(field, ForeignKey):
-                    obj_dict_result[key2] = obj_dict_result[key]
-                    del obj_dict_result[key]
-            except FieldDoesNotExist:
-                pass
+    obj_dict_result = {}
+    for key in obj._meta.get_all_field_names():
+        value = getattr(obj, key)
+
+        if isinstance(value, models.Model):
+            value = value.pk
+
+        obj_dict_result[key] = value
+
     manytomany_list = obj._meta.many_to_many
     for manytomany in manytomany_list:
         ids = [obj_rel.id for obj_rel in manytomany.value_from_object(obj).select_related()]
