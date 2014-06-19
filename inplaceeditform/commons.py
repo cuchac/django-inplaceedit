@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this programe.  If not, see <http://www.gnu.org/licenses/>.
+from ckeditor.fields import HTMLField
 
 from django import template
 from django.db import models
@@ -50,8 +51,7 @@ def get_dict_from_obj(obj):
     manytomany_list = obj._meta.many_to_many
     for manytomany in manytomany_list:
         ids = [obj_rel.id for obj_rel in manytomany.value_from_object(obj).select_related()]
-        if ids:
-            obj_dict_result[manytomany.name] = ids
+        obj_dict_result[manytomany.name] = ids
     return obj_dict_result
 
 
