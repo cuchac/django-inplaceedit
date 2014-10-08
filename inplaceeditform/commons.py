@@ -41,6 +41,9 @@ def get_dict_from_obj(obj):
     '''
     obj_dict_result = {}
     for key in obj._meta.get_all_field_names():
+        if not hasattr(obj, key):
+            continue
+
         value = getattr(obj, key)
 
         if isinstance(value, models.Model):
